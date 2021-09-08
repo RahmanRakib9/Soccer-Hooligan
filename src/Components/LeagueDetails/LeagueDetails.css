@@ -1,0 +1,20 @@
+.sideImg {
+     width: 90%;
+     border-radius: 5%;
+     position: relative;
+     top: 50%;
+     transform: translateY(-50%);
+}
+
+.centerDiv {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.parentDiv {
+     height: 500px;
+     width: 100%;
+     background-color: #1a1a1a;
+     border-radius: 5%;
+}
