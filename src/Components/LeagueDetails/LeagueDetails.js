@@ -6,24 +6,25 @@ import '../LeagueCard/LeagueCard.css'
 import './LeagueDetails.css';
 import sideImg from '../../Img/photo-1618888215370-5d77f2492c20.jpeg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faInstagram, faDiscord, faYoutube, faTwitter,faAtlassian } from '@fortawesome/free-brands-svg-icons';
-import { faMapMarkerAlt,faMarsStroke,faFlag, } from '@fortawesome/free-solid-svg-icons'
+import { faFacebookF, faInstagram, faDiscord, faYoutube, faTwitter, faAtlassian } from '@fortawesome/free-brands-svg-icons';
+import { faMapMarkerAlt, faMarsStroke, faFlag, } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
 
 
 const LeagueDetails = () => {
      const { teamId } = useParams()
      const [leagueDetails, setLeagueDetails] = useState([]);
-     const { strTeamBanner, intFormedYear, strCountry, strGender, strLeague, strDescriptionEN, strTeam,strStadium } = leagueDetails;
-
+     const { strTeamBanner, intFormedYear, strCountry, strGender, strLeague, strDescriptionEN, strTeam, strStadium } = leagueDetails;
 
      useEffect(() => {
-          fetch(`https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=${teamId}`)
-               .then(res => res.json())
+          const url = `https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=${teamId}`
+          axios(url)
                .then(data => {
-                    setLeagueDetails(data.teams[0])
-                    console.log(data.teams[0]);
+                    // console.log(data);
+                    setLeagueDetails(data.data.teams[0])
                })
      }, [teamId])
+     
      return (
           <Container>
                {/* <Link to='/'><Button>Back</Button></Link> */}
@@ -32,7 +33,7 @@ const LeagueDetails = () => {
                </div>
                <div className='parentDiv row mt-5 row-cols-1 pt-5 mx-1'>
                     <div className='col-md-6 centerDiv'>
-                         <div> 
+                         <div>
                               <h1 style={{ color: "white" }}>{strTeam}</h1>
                               <h5 style={{ color: "white" }}><FontAwesomeIcon icon={faAtlassian} /> Founded: {intFormedYear}</h5>
                               <h5 style={{ color: "white" }}><FontAwesomeIcon icon={faFlag} /> Country: {strCountry}</h5>

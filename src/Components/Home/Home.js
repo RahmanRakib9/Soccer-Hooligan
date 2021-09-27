@@ -3,26 +3,28 @@ import LeagueCard from '../LeagueCard/LeagueCard';
 import NavImg from '../../Img/photo-1508098682722-e99c43a406b2.jpeg'
 import '../LeagueCard/LeagueCard.css'
 import { Spinner } from 'react-bootstrap';
+import axios from 'axios';
 
 
-const toggleSpinner=()=>{
-     const spinner=document.getElementById('spinner');
+const toggleSpinner = () => {
+     const spinner = document.getElementById('spinner');
      spinner.classList.toggle('d-none')
 }
 
 const Home = () => {
      const [leagues, setLeagues] = useState([]);
-     //load data
+
      useEffect(() => {
           toggleSpinner();
-          fetch('https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League')
-               .then(res => res.json())
+          const url = 'https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League'
+          axios(url)
                .then(data => {
-                    setLeagues(data.teams)
-                    // console.log(data.teams);
+                    // console.log(data);
+                    setLeagues(data.data.teams)
                })
-               toggleSpinner();
+          toggleSpinner();
      }, [])
+
      return (
           <div>
                <div>
